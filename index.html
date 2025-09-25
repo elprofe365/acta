@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acta de Incidente - IEN Agustín Codazzi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        /* Colores institucionales */
+        :root {
+            --blue: #13397f;
+            --gold: #b58b17;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Encabezado Institucional */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--blue);
+            padding-bottom: 20px;
+        }
+
+        .header img {
+            max-height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: var(--blue);
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 5px 0 0 0;
+        }
+
+        /* Título del Documento */
+        .document-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--blue);
+            margin: 20px 0;
+        }
+
+        /* Formulario y su layout */
+        .form-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+        }
+
+        .form-section h2 {
+            font-size: 1.2rem;
+            color: var(--blue);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--blue);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Botones */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-preview {
+            background-color: var(--blue);
+            color: var(--white);
+        }
+
+        .btn-pdf {
+            background-color: var(--gold);
+            color: var(--blue);
+        }
+        
+        .btn-print {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Estilos de la tabla de visualización/impresión */
+        #preview-table-container {
+            display: none;
+            margin-top: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #incident-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            table-layout: fixed;
+        }
+        
+        #incident-table th,
+        #incident-table td {
+            padding: 8px 10px;
+            text-align: left;
+            border: 1px solid var(--blue);
+            word-wrap: break-word; /* For long text */
+        }
+
+        #incident-table thead th {
+            background-color: var(--gold);
+            color: var(--white);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #incident-table tbody tr:nth-child(odd) {
+            background-color: var(--white);
+        }
+
+        #incident-table tbody tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        #incident-table .section-header {
+            background-color: var(--blue);
+            color: var(--white);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .conclusion-text {
+            font-size: 0.9rem;
+            text-align: justify;
+            margin: 20px 0;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .signatures-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .signatures-section .signature-block {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .signatures-section h3 {
+            margin: 0 0 10px 0;
+            color: var(--blue);
+            font-size: 1rem;
+        }
+        
+        .signatures-section .signature-line {
+            height: 40px;
+            border-bottom: 1px dashed #555;
+            margin-bottom: 5px;
+        }
+
+        /* Media Queries para Responsive Design */
+        @media (min-width: 768px) {
+            .form-grid.two-columns {
+                grid-template-columns: 1fr 1fr;
+            }
+            .form-grid .full-width {
+                grid-column: span 2;
+            }
+        }
+        
+        /* Estilos específicos para impresión */
+        @media print {
+            body {
+                background-color: var(--white);
+                padding: 0;
+                margin: 0;
+            }
+
+            .container, .form-section, .button-group {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .form-section, .button-group {
+                display: none; /* Oculta el formulario y los botones en la impresión */
+            }
+
+            #preview-table-container {
+                display: block !important;
+                border: none;
+                overflow: visible;
+                padding: 20px;
+                max-width: 100%;
+            }
+            
+            #incident-table {
+                font-size: 10pt;
+                border: 1px solid var(--blue);
+            }
+
+            .header img {
+                max-height: 80px;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .header p {
+                font-size: 0.7rem;
+            }
+            
+            .signatures-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Encabezado Institucional -->
+        <div class="header">
+            <img src="https://ienacionalagustincodazzi.edu.co/wp-content/uploads/2021/08/escudo_2-183x193.png" alt="Escudo Institución Educativa Nacional Agustín Codazzi">
+            <h1>Institución Educativa Nacional Agustín Codazzi</h1>
+            <p>Sede Santa Rita</p>
+            <p>NIT: 892300220-8 | DANE: 120013000463</p>
+        </div>
+
+        <h2 class="document-title">ACTA DE INCIDENTE ACADÉMICO/DISCIPLINARIO</h2>
+
+        <form id="incident-form">
+            <!-- Sección: Información del Estudiante -->
+            <div class="form-section">
+                <h2>Información del Estudiante</h2>
+                <div class="form-grid two-columns">
+                    <div class="form-group">
+                        <label for="student-name">Nombre Completo:</label>
+                        <input type="text" id="student-name" name="student-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-grade">Grado:</label>
+                        <select id="student-grade" name="student-grade" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1º">1º primaria</option>
+                            <option value="2º">2º primaria</option>
+                            <option value="3º">3º primaria</option>
+                            <option value="4º">4º primaria</option>
+                            <option value="5º">5º primaria</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-group">Grupo:</label>
+                        <select id="student-group" name="student-group" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-shift">Jornada:</label>
+                        <select id="student-shift" name="student-shift" required>
+                            <option value="">Seleccione...</option>
+                            <option value="Mañana">Mañana</option>
+                            <option value="Tarde">Tarde</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección: Información del Docente -->
+            <div class="form-section">
+                <h2>Información del Docente</h2>
+                <div class="form-grid two-columns">
+                    <div class="form-group">
+                        <label for="teacher-name">Nombre Completo:</label>
+                        <input type="text" id="teacher-name" name="teacher-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher-position">Cargo:</label>
+                        <select id="teacher-position" name="teacher-position" required>
+                            <option value="">Seleccione...</option>
+                            <option value="Docente de área">Docente de área</option>
+                            <option value="Director de grupo">Director de grupo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección: Detalles del Incidente -->
+            <div class="form-section">
+                <h2>Detalles del Incidente</h2>
+                <div class="form-grid two-columns">
+                    <div class="form-group">
+                        <label for="incident-date">Fecha:</label>
+                        <input type="date" id="incident-date" name="incident-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="incident-time">Hora:</label>
+                        <input type="time" id="incident-time" name="incident-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="incident-place">Lugar:</label>
+                        <input type="text" id="incident-place" name="incident-place" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="incident-type">Tipo de Incidente:</label>
+                        <select id="incident-type" name="incident-type" required>
+                            <option value="">Seleccione...</option>
+                            <option value="Agresión física">Agresión física</option>
+                            <option value="Agresión verbal">Agresión verbal</option>
+                            <option value="Desobediencia">Desobediencia</option>
+                            <option value="Disrupción">Disrupción</option>
+                            <option value="Falta de respeto">Falta de respeto</option>
+                            <option value="Daño a propiedad">Daño a propiedad</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="incident-description">Descripción detallada:</label>
+                        <textarea id="incident-description" name="incident-description" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección: Gestión y Observaciones -->
+            <div class="form-section">
+                <h2>Gestión y Observaciones</h2>
+                <div class="form-grid two-columns">
+                    <div class="form-group">
+                        <label for="immediate-actions">Acciones Inmediatas:</label>
+                        <textarea id="immediate-actions" name="immediate-actions"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="corrective-measures">Medidas Correctivas:</label>
+                        <textarea id="corrective-measures" name="corrective-measures"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="agreements">Acuerdos:</label>
+                        <textarea id="agreements" name="agreements"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="parent-actions">Acciones para Padres:</label>
+                        <textarea id="parent-actions" name="parent-actions"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="additional-observations">Observaciones Adicionales:</label>
+                        <textarea id="additional-observations" name="additional-observations"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="act-datetime">Fecha y Hora de Firma del Acta:</label>
+                        <input type="datetime-local" id="act-datetime" name="act-datetime" required>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="button-group">
+            <button type="button" class="btn btn-preview" id="preview-btn">Previsualizar Informe</button>
+            <button type="button" class="btn btn-pdf" id="download-pdf-btn">Descargar PDF</button>
+            <button type="button" class="btn btn-print" id="print-btn">Imprimir</button>
+        </div>
+        
+        <!-- Contenedor para la tabla de previsualización (oculto por defecto) -->
+        <div id="preview-table-container"></div>
+    </div>
+
+    <!-- Scripts para jspdf y jspdf-autotable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    
+    <script>
+        // Set initial date and time for the act
+        window.onload = function() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('act-datetime').value = now.toISOString().slice(0, 16);
+        };
+    
+        // Add event listeners to buttons
+        document.getElementById('preview-btn').addEventListener('click', openPreviewWindow);
+        document.getElementById('download-pdf-btn').addEventListener('click', generatePDF);
+        document.getElementById('print-btn').addEventListener('click', () => window.print());
+
+        function getFormData() {
+            const form = document.getElementById('incident-form');
+            const data = {};
+            new FormData(form).forEach((value, key) => data[key] = value);
+            return data;
+        }
+
+        function openPreviewWindow() {
+            const data = getFormData();
+            
+            const actDateTime = new Date(data['act-datetime']);
+            const actTime = actDateTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const actDate = actDateTime.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            
+            const conclusionText = `Agotados todos los temas a tratar, se da lectura al acta siendo aprobado por los asistentes, se da por terminada la reunión siendo las <span style="font-weight: bold; text-decoration: underline;">${actTime}</span> del día <span style="font-weight: bold; text-decoration: underline;">${actDate}</span>.`;
+
+            const previewContent = `
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Previsualización del Acta</title>
+                    <style>
+                        body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; color: #333; }
+                        .preview-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+                        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #13397f; padding-bottom: 20px; }
+                        .header img { max-height: 80px; margin-bottom: 10px; }
+                        .header h1 { font-size: 1.5rem; color: #13397f; margin: 0; }
+                        .header p { font-size: 0.8rem; color: #555; margin: 5px 0 0 0; }
+                        .document-title { text-align: center; font-size: 1.3rem; font-weight: bold; color: #13397f; margin: 20px 0; }
+                        #incident-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; table-layout: fixed; border: 1px solid #13397f; }
+                        #incident-table th, #incident-table td { padding: 8px 10px; text-align: left; border: 1px solid #13397f; word-wrap: break-word; }
+                        #incident-table thead th { background-color: #b58b17; color: #ffffff; text-align: center; font-weight: bold; }
+                        #incident-table .section-header { background-color: #13397f; color: #ffffff; font-weight: bold; text-align: center; }
+                        .conclusion-text { font-size: 0.9rem; text-align: justify; margin: 20px 0; line-height: 1.5; color: #555; }
+                        .signatures-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+                        .signatures-section .signature-block { border: 1px solid #ccc; padding: 15px; border-radius: 8px; }
+                        .signatures-section h3 { margin: 0 0 10px 0; color: #13397f; font-size: 1rem; }
+                        .signatures-section .signature-line { height: 40px; border-bottom: 1px dashed #555; margin-bottom: 5px; }
+                        .print-btn-container { text-align: center; margin-top: 30px; }
+                        .print-btn { padding: 10px 20px; font-size: 1rem; border-radius: 6px; cursor: pointer; background-color: #13397f; color: #fff; border: none; }
+                        
+                        @media print {
+                            .print-btn-container { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="preview-container">
+                        <div class="header">
+                            <img src="https://ienacionalagustincodazzi.edu.co/wp-content/uploads/2021/08/escudo_2-183x193.png" alt="Escudo Institución Educativa Nacional Agustín Codazzi">
+                            <h1>Institución Educativa Nacional Agustín Codazzi</h1>
+                            <p>Sede Santa Rita</p>
+                            <p>NIT: 892300220-8 | DANE: 120013000463</p>
+                        </div>
+                        <h2 class="document-title">ACTA DE INCIDENTE ACADÉMICO/DISCIPLINARIO</h2>
+                        <table id="incident-table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="section-header">Información del Estudiante</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Nombre Completo</td><td>${data['student-name']}</td></tr>
+                                <tr><td>Grado</td><td>${data['student-grade']}</td></tr>
+                                <tr><td>Grupo</td><td>${data['student-group']}</td></tr>
+                                <tr><td>Jornada</td><td>${data['student-shift']}</td></tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="section-header">Información del Docente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Nombre Completo</td><td>${data['teacher-name']}</td></tr>
+                                <tr><td>Cargo</td><td>${data['teacher-position']}</td></tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="section-header">Detalles del Incidente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Fecha</td><td>${data['incident-date']}</td></tr>
+                                <tr><td>Hora</td><td>${data['incident-time']}</td></tr>
+                                <tr><td>Lugar</td><td>${data['incident-place']}</td></tr>
+                                <tr><td>Tipo de Incidente</td><td>${data['incident-type']}</td></tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="section-header">Descripción del Incidente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="2">${data['incident-description']}</td></tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="section-header">Gestión y Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Acciones Inmediatas</td><td>${data['immediate-actions']}</td></tr>
+                                <tr><td>Medidas Correctivas</td><td>${data['corrective-measures']}</td></tr>
+                                <tr><td>Acuerdos</td><td>${data['agreements']}</td></tr>
+                                <tr><td>Acciones para Padres</td><td>${data['parent-actions']}</td></tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="section-header">Observaciones Adicionales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="2">${data['additional-observations']}</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="conclusion-text">${conclusionText}</div>
+                        <div class="signatures-section">
+                            <div class="signature-block">
+                                <h3>Docente</h3>
+                                <div class="signature-line"></div>
+                            </div>
+                            <div class="signature-block">
+                                <h3>Coordinación Académica</h3>
+                                <div class="signature-line"></div>
+                            </div>
+                            <div class="signature-block" style="grid-column: span 2;">
+                                <h3>Estudiantes (6 espacios)</h3>
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                                    ${Array(6).fill('<div class="signature-line"></div>').join('')}
+                                </div>
+                            </div>
+                            <div class="signature-block" style="grid-column: span 2;">
+                                <h3>Acudientes (6 espacios)</h3>
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                                    ${Array(6).fill('<div class="signature-line"></div>').join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="print-btn-container">
+                            <button class="print-btn" onclick="window.print()">Imprimir Acta</button>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            const newWindow = window.open('', '_blank');
+            if (newWindow) {
+                newWindow.document.write(previewContent);
+                newWindow.document.close();
+            } else {
+                alert('La ventana emergente no pudo ser abierta. Por favor, revisa la configuración de tu navegador.');
+            }
+        }
+
+        // Function to generate the PDF
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'letter');
+            const data = getFormData();
+            const now = new Date();
+            const timestamp = now.toLocaleString('es-ES');
+            
+            // Institutional header (Image, text)
+            const imgData = "https://ienacionalagustincodazzi.edu.co/wp-content/uploads/2021/08/escudo_2-183x193.png";
+            doc.addImage(imgData, 'PNG', 265, 40, 80, 85);
+            doc.setFontSize(16);
+            doc.text("Institución Educativa Nacional Agustín Codazzi", 300, 140, { align: "center" });
+            doc.setFontSize(12);
+            doc.text("Sede Santa Rita", 300, 160, { align: "center" });
+            doc.text("NIT: 892300220-8 | DANE: 120013000463", 300, 180, { align: "center" });
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text("ACTA DE INCIDENTE ACADÉMICO/DISCIPLINARIO", 300, 220, { align: "center" });
+
+            // Data for the PDF table
+            const tableData = [
+                // Student Info
+                [{ content: 'Información del Estudiante', colSpan: 2, styles: { fillColor: '#b58b17', textColor: '#ffffff' } }],
+                ['Nombre Completo', data['student-name']],
+                ['Grado', data['student-grade']],
+                ['Grupo', data['student-group']],
+                ['Jornada', data['student-shift']],
+
+                // Teacher Info
+                [{ content: 'Información del Docente', colSpan: 2, styles: { fillColor: '#b58b17', textColor: '#ffffff' } }],
+                ['Nombre Completo', data['teacher-name']],
+                ['Cargo', data['teacher-position']],
+
+                // Incident Details
+                [{ content: 'Detalles del Incidente', colSpan: 2, styles: { fillColor: '#b58b17', textColor: '#ffffff' } }],
+                ['Fecha', data['incident-date']],
+                ['Hora', data['incident-time']],
+                ['Lugar', data['incident-place']],
+                ['Tipo de Incidente', data['incident-type']],
+
+                // Incident Description
+                [{ content: 'Descripción del Incidente', colSpan: 2, styles: { fillColor: '#b58b17', textColor: '#ffffff' } }],
+                [{ content: data['incident-description'], colSpan: 2 }],
+
+                // Management & Observations
+                [{ content: 'Gestión y Observaciones', colSpan: 2, styles: { fillColor: '#b58b17', textColor: '#ffffff' } }],
+                ['Acciones Inmediatas', data['immediate-actions']],
+                ['Medidas Correctivas', data['corrective-measures']],
+                ['Acuerdos', data['agreements']],
+                ['Acciones para Padres', data['parent-actions']],
+
+                // Additional Observations
+                [{ content: 'Observaciones Adicionales', colSpan: 2, styles: { fillColor: '#b58b17', textColor: '#ffffff' } }],
+                [{ content: data['additional-observations'], colSpan: 2 }],
+            ];
+            
+            // Generate the table with autoTable
+            doc.autoTable({
+                startY: 250,
+                head: [
+                    [{ content: 'Detalles del Acta', colSpan: 2, styles: { halign: 'center', fillColor: '#13397f', textColor: '#ffffff' } }]
+                ],
+                body: tableData,
+                theme: 'striped',
+                styles: {
+                    font: 'helvetica',
+                    fontSize: 10,
+                    cellPadding: 8,
+                },
+                headStyles: {
+                    fillColor: '#13397f',
+                    textColor: '#ffffff',
+                    fontStyle: 'bold',
+                    halign: 'center',
+                },
+                bodyStyles: {
+                    fillColor: '#ffffff',
+                    textColor: '#333333',
+                },
+                alternateRowStyles: {
+                    fillColor: '#f8f9fa'
+                },
+                columnStyles: {
+                    0: { halign: 'left', cellWidth: 'auto', fontStyle: 'bold' },
+                    1: { halign: 'left' }
+                }
+            });
+
+            // Signatures Section
+            let finalY = doc.lastAutoTable.finalY + 30;
+            const actDateTime = new Date(data['act-datetime']);
+            const actTime = actDateTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const actDate = actDateTime.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Agotados todos los temas a tratar, se da lectura al acta siendo aprobado por los asistentes, se da por terminada la reunión siendo las ${actTime} del día ${actDate}.`, 30, finalY, { maxWidth: 550, align: "justify" });
+            
+            finalY += 40;
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text("Firmas", 300, finalY, { align: "center" });
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            finalY += 20;
+
+            doc.text("__________________________", 100, finalY);
+            doc.text("Docente", 100, finalY + 15);
+            doc.text("__________________________", 350, finalY);
+            doc.text("Coordinación Académica", 350, finalY + 15);
+
+            finalY += 40;
+            doc.text("__________________________________", 200, finalY);
+            doc.text("Estudiantes (6 espacios)", 200, finalY + 15);
+
+            finalY += 40;
+            doc.text("__________________________________", 200, finalY);
+            doc.text("Acudientes (6 espacios)", 200, finalY + 15);
+            
+            // Add timestamp to the PDF footer
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.text(`Generado el: ${timestamp}`, 300, doc.internal.pageSize.height - 20, { align: "center" });
+            }
+
+            // Save the PDF
+            doc.save(`acta-incidente-${data['student-name'].split(' ').join('-').toLowerCase()}-${data['incident-date']}.pdf`);
+        }
+    </script>
+
+</body>
+</html>
