@@ -478,6 +478,7 @@
                         #incident-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; table-layout: fixed; border: 1px solid #13397f; }
                         #incident-table th, #incident-table td { padding: 8px 10px; text-align: left; border: 1px solid #13397f; word-wrap: break-word; }
                         #incident-table thead th { background-color: #b58b17; color: #ffffff; text-align: center; font-weight: bold; }
+                        /* NOTA: Las siguientes clases son las que cumplen el requisito de azul y blanco para la impresión */
                         #incident-table .section-header { background-color: #13397f; color: #ffffff; font-weight: bold; text-align: center; }
                         .conclusion-text { font-size: 0.9rem; text-align: justify; margin: 20px 0; line-height: 1.5; color: #555; }
                         .signatures-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
@@ -579,13 +580,14 @@
                                 <h3>&nbsp;</h3>
                                 <div class="signature-line"></div>
                             </div>
-                            <div class="signature-block" style="grid-column: span 2;">
+                            <!-- La sección de Estudiantes y Acudientes ahora se muestra en dos columnas -->
+                            <div class="signature-block">
                                 <h3>Estudiantes</h3>
                                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                                     ${Array(6).fill('<div class="signature-line"></div>').join('')}
                                 </div>
                             </div>
-                            <div class="signature-block" style="grid-column: span 2;">
+                            <div class="signature-block">
                                 <h3>Acudientes</h3>
                                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                                     ${Array(6).fill('<div class="signature-line"></div>').join('')}
